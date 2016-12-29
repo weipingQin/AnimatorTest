@@ -28,10 +28,8 @@ import java.util.TimerTask;
 
 public class TestActivity extends AppCompatActivity {
 
-    private Handler mHandler;
     private Animation animation, alphaAnimation;
     private AnimationSet animationset;
-    private Timer mTimer;
 
     private TextView mCircle;
     private ImageView mWifiImage;
@@ -54,31 +52,8 @@ public class TestActivity extends AppCompatActivity {
         mWifiImage.setImageResource(R.drawable.wifi_animationlist);
         AnimationDrawable animationDrawable = (AnimationDrawable) mWifiImage.getDrawable();
         animationDrawable.start();
-        mHandler = new Handler(new Handler.Callback() {
-            @Override
-            public boolean handleMessage(Message message) {
-                switch (message.what) {
-                    case REFRESH_UI:
-                        mCircle.setAnimation(animationset);
-                        mCircle.startAnimation(animation);
-                        break;
-                    default:
-                        break;
-                }
-                return false;
-            }
-        });
         initAnima();
-        mTimer = new Timer();
-        TimerTask timerTask = new TimerTask() {
-            @Override
-            public void run() {
-                Message message = new Message();
-                message.what = REFRESH_UI;
-                mHandler.sendMessage(message);
-            }
-        };
-        mTimer.schedule(timerTask, 0, 3000);
+        mCircle.setAnimation(animationset);
     }
 
     /**
@@ -98,6 +73,5 @@ public class TestActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mTimer.cancel();
     }
 }

@@ -1,14 +1,17 @@
 package myproject.test.com.mytestviewproject;
 
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ImageView mImageView;
-
+    private ImageView mCompleteImageView;
+    private Animation mAnimation;
     private Handler mHandler;
 
     @Override
@@ -19,8 +22,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void init(){
-        mImageView = (ImageView) findViewById(R.id.activity_main_iv);
-        mImageView.setImageLevel(1);
-        mHandler = new Handler();
+        mCompleteImageView = (ImageView) findViewById(R.id.complete_btn_ok_iv_iv);
+        mCompleteImageView.setImageResource(R.drawable.complete_icon_ok);
+        mAnimation = AnimationUtils.loadAnimation(this,R.anim.enlarge_complete);
+        mCompleteImageView.startAnimation(mAnimation);
     }
 }
